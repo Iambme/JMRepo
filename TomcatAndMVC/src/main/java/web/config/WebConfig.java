@@ -53,7 +53,6 @@ public class WebConfig implements WebMvcConfigurer {
     public LocaleResolver getLocaleResolver()  {
         CookieLocaleResolver resolver= new CookieLocaleResolver();
         resolver.setCookieDomain("myAppLocaleCookie");
-        // 60 minutes
         resolver.setCookieMaxAge(60*60);
         return resolver;
     }
@@ -61,9 +60,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean(name = "messageSource")
     public MessageSource getMessageResource()  {
         ReloadableResourceBundleMessageSource messageResource= new ReloadableResourceBundleMessageSource();
-
-        // Read i18n/messages_xxx.properties file.
-        // For example: i18n/messages_en.properties
         messageResource.setBasename("classpath:i18n/cars");
         messageResource.setDefaultEncoding("UTF-8");
         return messageResource;
@@ -72,8 +68,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor localeInterceptor = new LocaleChangeInterceptor();
         localeInterceptor.setParamName("locale");
-
-
         registry.addInterceptor(localeInterceptor).addPathPatterns("/*");
     }
 
