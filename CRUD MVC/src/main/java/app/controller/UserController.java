@@ -49,27 +49,7 @@ public class UserController {
         return "userData";
     }
 
-/*
-        @PostMapping("/updateUser")
-    public String updateUser(MyUser myUser, Model model) {
-        List<MyUser> collect = Store.list.stream().filter(user -> user.getName().equals(myUser.getName())).collect(Collectors.toList());
-        if (collect.size() > 0) {
-            MyUser managedUser = collect.get(0);
-            managedUser.setLogin(myUser.getLogin());
-            managedUser.setName(myUser.getName());
-            managedUser.setPassword(myUser.getPassword());
-            //save
-            Store.list.remove(myUser);
-            Store.list.add(managedUser);
-            model.addAttribute("myUser", managedUser);
-            return "redirect:/userData/" + managedUser.getName();
-        }
-        return "redirect:/allUser";
-
-    }
-*/
     @PostMapping("/updateUser")
-    //public String updateUser(@RequestParam int id, @RequestParam String name, @RequestParam String login, @RequestParam String password) {
     public String updateUser(MyUser myUser) {
         myUserService.updateMyUser(myUser);
         return "redirect:/allUser";
@@ -85,7 +65,6 @@ public class UserController {
     public String updateUser_index() {
         return "redirect:/allUser";
     }
-
 
 
     @GetMapping("/removeUser/{id}")
