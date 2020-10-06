@@ -14,7 +14,6 @@ import java.util.List;
 @Controller
 public class UserController {
 
-
     private MyUserService myUserService;
 
     @Autowired
@@ -40,7 +39,6 @@ public class UserController {
         myUserService.saveMyUser(myUser);
         return "redirect:/allUser";
     }
-
 
     @GetMapping("/userData/{id}")
     public String userData_index(@PathVariable int id, Model model) {

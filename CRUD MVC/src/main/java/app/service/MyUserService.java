@@ -11,7 +11,7 @@ public interface MyUserService {
 
     void saveMyUser(MyUser myUser);
 
-    void updateMyUser(int id, String name, String login, String password);
+
     void updateMyUser(MyUser myUser);
 
     void deleteMyUser(int id);

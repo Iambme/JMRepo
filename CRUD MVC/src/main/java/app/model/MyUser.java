@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
 import javax.persistence.*;
 
 @Data
@@ -19,13 +18,10 @@ public class MyUser {
 
 
     @NonNull
-    @Column(name = "name")
     private String name;
     @NonNull
-    @Column(name = "login")
     private String login;
     @NonNull
-    @Column(name = "password")
     private String password;
 
 
