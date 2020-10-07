@@ -2,6 +2,7 @@ package app.dao;
 
 import app.model.MyUser;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -31,8 +32,6 @@ public class MyUserDaoImpl implements MyUserDao {
 
     @Override
     public void updateMyUser(MyUser myUser) {
-        MyUser managedUser = entityManager.find(MyUser.class, myUser.getId());
-        myUser.setRoles(managedUser.getRoles());
         entityManager.merge(myUser);
     }
 
