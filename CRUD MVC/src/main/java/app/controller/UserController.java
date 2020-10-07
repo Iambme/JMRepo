@@ -5,9 +5,7 @@ import app.service.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +17,16 @@ public class UserController {
     @Autowired
     public void setMyUserService(MyUserService myUserService) {
         this.myUserService = myUserService;
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    @GetMapping("/admin")
+    public String startPage() {
+        return "index";
     }
 
     @GetMapping("/allUser")
@@ -46,6 +54,12 @@ public class UserController {
         model.addAttribute("myUser", myUser);
         return "userData";
     }
+    @GetMapping("/user/{id}")
+    public String user(@PathVariable int id, Model model) {
+        MyUser myUser = myUserService.getMyUser(id);
+        model.addAttribute("myUser", myUser);
+        return "user";
+    }
 
     @PostMapping("/updateUser")
     public String updateUser(MyUser myUser) {
@@ -70,4 +84,5 @@ public class UserController {
         myUserService.deleteMyUser(id);
         return "redirect:/allUser";
     }
+
 }

@@ -11,7 +11,6 @@ public interface MyUserService {
 
     void saveMyUser(MyUser myUser);
 
-
     void updateMyUser(MyUser myUser);
 
     void deleteMyUser(int id);

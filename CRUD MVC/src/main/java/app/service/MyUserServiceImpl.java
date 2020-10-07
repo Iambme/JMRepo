@@ -9,8 +9,8 @@ import java.util.List;
 
 @Service
 public class MyUserServiceImpl implements MyUserService {
-    private MyUserDao myUserDao;
 
+    private MyUserDao myUserDao;
 
     @Autowired
     public void setMyUserDao(MyUserDao myUserDao) {

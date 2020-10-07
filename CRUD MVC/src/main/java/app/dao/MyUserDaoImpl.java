@@ -10,6 +10,7 @@ public class MyUserDaoImpl implements MyUserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     @Override
     public MyUser getMyUser(int id) {
         MyUser myUser = (MyUser) entityManager.find(MyUser.class, id);
@@ -28,9 +29,10 @@ public class MyUserDaoImpl implements MyUserDao {
     }
 
 
-
     @Override
     public void updateMyUser(MyUser myUser) {
+        MyUser managedUser = entityManager.find(MyUser.class, myUser.getId());
+        myUser.setRoles(managedUser.getRoles());
         entityManager.merge(myUser);
     }
 
@@ -38,5 +40,13 @@ public class MyUserDaoImpl implements MyUserDao {
     public void deleteMyUser(int id) {
         MyUser myUser = getMyUser(id);
         entityManager.remove(myUser);
+    }
+
+    @Override
+    public MyUser getUserByName(String login) {
+        TypedQuery<MyUser> query = entityManager.createQuery("SELECT c FROM MyUser c WHERE c.login = :login", MyUser.class);
+        MyUser myUser = query.setParameter("login", login).getSingleResult();
+        System.out.println(myUser);
+        return myUser;
     }
 }
