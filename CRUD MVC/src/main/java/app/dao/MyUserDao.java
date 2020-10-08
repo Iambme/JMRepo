@@ -13,7 +13,6 @@ public interface MyUserDao {
 
     void saveMyUser(MyUser myUser,Role role);
 
-    void updateMyUser(MyUser myUser);
 
     void updateMyUser(MyUser myUser, Role role);
 

@@ -33,12 +33,6 @@ public class MyUserDaoImpl implements MyUserDao {
         entityManager.persist(myUser);
     }
 
-
-    @Override
-    public void updateMyUser(MyUser myUser) {
-        entityManager.merge(myUser);
-    }
-
     public void updateMyUser(MyUser myUser, Role role) {
         TypedQuery<Role> query = entityManager.createQuery("SELECT c FROM Role c WHERE c.role = :role", Role.class);
         Role manegedRole = query.setParameter("role", role.getRole()).getSingleResult();
