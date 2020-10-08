@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -73,6 +74,13 @@ public class MyUser implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Role role){
+        if (roles == null) {
+            roles = new HashSet<Role>();
+        }
+        roles.add(role);
     }
 
     @Override

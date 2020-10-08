@@ -47,10 +47,10 @@ public class UserController {
 
     @PostMapping("/addUser")
     public String addUser(MyUser myUser, Role role) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        myUser.setRoles(roles);
-        myUserService.saveMyUser(myUser);
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(role);
+//        myUser.setRoles(roles);
+        myUserService.saveMyUser(myUser,role);
         return "redirect:/allUser";
     }
 
@@ -69,12 +69,13 @@ public class UserController {
 
     @PostMapping("/updateUser")
     public String updateUser(MyUser myUser,Role role) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        myUser.setRoles(roles);
-        System.out.println(myUser.getRoles()+ " new role is");
-        myUserService.updateMyUser(myUser);
-        System.out.println(myUser.getRoles()+ " and now");
+//        Set<Role> roles = new HashSet<>();
+//        System.out.println(myUser.getRoles() + "this role");
+//        roles.add(role);
+//        myUser.setRoles(roles);
+
+//        myUserService.updateMyUser(myUser);
+        myUserService.updateMyUser(myUser,role);
         return "redirect:/allUser";
 
     }
