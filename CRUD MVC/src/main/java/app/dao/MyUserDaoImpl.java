@@ -3,9 +3,7 @@ package app.dao;
 import app.model.MyUser;
 import app.model.Role;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
 
 @Repository
@@ -26,11 +24,6 @@ public class MyUserDaoImpl implements MyUserDao {
         return entityManager.createQuery("from MyUser").getResultList();
     }
 
-    @Override
-    public void saveMyUser(MyUser myUser) {
-
-        entityManager.persist(myUser);
-    }
 
     @Override
     public void saveMyUser(MyUser myUser, Role role) {

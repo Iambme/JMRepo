@@ -30,11 +30,7 @@ public class MyUserServiceImpl implements MyUserService {
         return myUserDao.getMyUserList();
     }
 
-    @Transactional
-    @Override
-    public void saveMyUser(MyUser myUser) {
-        myUserDao.saveMyUser(myUser);
-    }
+
     @Transactional
     @Override
     public void saveMyUser(MyUser myUser, Role role) {

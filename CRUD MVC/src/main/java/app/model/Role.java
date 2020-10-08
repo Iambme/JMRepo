@@ -2,8 +2,6 @@ package app.model;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-
-
 import javax.persistence.*;
 import java.util.Set;
 

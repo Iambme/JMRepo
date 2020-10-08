@@ -10,7 +10,7 @@ public interface MyUserDao {
 
     List<MyUser> getMyUserList();
 
-    void saveMyUser(MyUser myUser);
+
     void saveMyUser(MyUser myUser,Role role);
 
     void updateMyUser(MyUser myUser);

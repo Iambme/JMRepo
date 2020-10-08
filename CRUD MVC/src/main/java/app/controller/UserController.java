@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class UserController {
@@ -47,9 +44,6 @@ public class UserController {
 
     @PostMapping("/addUser")
     public String addUser(MyUser myUser, Role role) {
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(role);
-//        myUser.setRoles(roles);
         myUserService.saveMyUser(myUser,role);
         return "redirect:/allUser";
     }
@@ -69,12 +63,6 @@ public class UserController {
 
     @PostMapping("/updateUser")
     public String updateUser(MyUser myUser,Role role) {
-//        Set<Role> roles = new HashSet<>();
-//        System.out.println(myUser.getRoles() + "this role");
-//        roles.add(role);
-//        myUser.setRoles(roles);
-
-//        myUserService.updateMyUser(myUser);
         myUserService.updateMyUser(myUser,role);
         return "redirect:/allUser";
 
