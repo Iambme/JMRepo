@@ -6,20 +6,22 @@
 </head>
 <body>
 <p>Данные пользователя:</p>
-<form method="post" action="/updateUser">
+<form method="post" action="/admin/updateUser">
     <p><input type="hidden" name="id" th:value="${myUser.getId()}"></p>
-    <p><input type="text" name="name" th:value="${myUser.getName()}"></p>
-    <p><input type="text" name="login" th:value="${myUser.getLogin()}"></p>
-    <p><input type="text" name="password" th:value="${myUser.getPassword()}"></p>
-    <select name="role" size="1">
+    <p><input type="text" name="firstName" th:value="${myUser.getFirstName()}"></p>
+    <p><input type="text" name="lastName" th:value="${myUser.getLastName()}"></p>
+    <p><input type="text" name="email" th:value="${myUser.getEmail()}"></p>
+    <p><input type="text" name="age" th:value="${myUser.getAge()}"></p>
+    <p><input type="text" name="password"></p>
+    <select class="custom-select form-control" name="role" size="2">
         <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-        <option selected="selected" value="ROLE_USER">ROLE_USER</option>
+        <option value="ROLE_USER">ROLE_USER</option>
     </select>
     <p><input type="submit" value="Изменить"></p>
 </form>
 
 
-<p><a th:href="@{/removeUser/{id}(id = ${myUser.getId()})}">Удалить</a></p>
+<p><a th:href="@{/admin/removeUser/{id}(id = ${myUser.getId()})}">Удалить</a></p>
 <a th:href="@{/logout}">Sign Out</a>
 </body>
 </html>

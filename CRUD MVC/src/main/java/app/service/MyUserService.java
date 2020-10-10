@@ -2,6 +2,7 @@ package app.service;
 
 import app.model.MyUser;
 import app.model.Role;
+
 import java.util.List;
 
 public interface MyUserService {
@@ -9,11 +10,11 @@ public interface MyUserService {
 
     List<MyUser> getMyUserList();
 
+    boolean saveMyUser(MyUser myUser,Role role);
 
-    void saveMyUser(MyUser myUser, Role role);
-
-    void updateMyUser(MyUser myUser, Role role);
-
+    boolean updateMyUser(MyUser myUser,Role role);
 
     void deleteMyUser(int id);
+
+    String ifPasswordNull(int id, String password);
 }

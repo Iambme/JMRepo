@@ -27,7 +27,7 @@ public class DataBaseConfig {
     private Environment env;
 
     @Autowired
-    public void setEnv(Environment env) {
+    public DataBaseConfig(Environment env) {
         this.env = env;
     }
 
@@ -44,11 +44,9 @@ public class DataBaseConfig {
     @Bean
     public Properties hibernateProperties() {
         final Properties props = new Properties();
-
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-
         return props;
     }
 
@@ -61,9 +59,7 @@ public class DataBaseConfig {
         em.setJpaProperties(hibernateProperties);
         em.setPersistenceUnitName("MyUser");
         em.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-
         em.afterPropertiesSet();
-
         return em.getObject();
     }
 

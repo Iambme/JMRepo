@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -15,74 +14,21 @@ public class UserController {
     private MyUserService myUserService;
 
     @Autowired
-    public void setMyUserService(MyUserService myUserService) {
+    public UserController(MyUserService myUserService) {
         this.myUserService = myUserService;
     }
 
     @GetMapping("/login")
     public String loginPage() {
+        myUserService.saveMyUser(new MyUser("Sherlock", "Holmes", "sh@bk.ru", 33, "admin"), new Role("ROLE_ADMIN"));
+        myUserService.saveMyUser(new MyUser("Doctor", "Watson", "wat@bk.ru", 40, "user"), new Role("ROLE_USER"));
         return "login";
     }
 
-    @GetMapping("/admin")
-    public String startPage() {
-        return "index";
-    }
-
-    @GetMapping("/allUser")
-    public String allUser(Model model) {
-        List<MyUser> myUserList = myUserService.getMyUserList();
-        model.addAttribute("allUser", myUserList);
-        return "allUser";
-    }
-
-    @GetMapping("/addUser")
-    public String addUser_index(Model model) {
-        return "addUser";
-    }
-
-
-    @PostMapping("/addUser")
-    public String addUser(MyUser myUser, Role role) {
-        myUserService.saveMyUser(myUser,role);
-        return "redirect:/allUser";
-    }
-
-    @GetMapping("/userData/{id}")
-    public String userData_index(@PathVariable int id, Model model) {
-        MyUser myUser = myUserService.getMyUser(id);
-        model.addAttribute("myUser", myUser);
-        return "userData";
-    }
     @GetMapping("/user/{id}")
     public String user(@PathVariable int id, Model model) {
         MyUser myUser = myUserService.getMyUser(id);
         model.addAttribute("myUser", myUser);
         return "user";
     }
-
-    @PostMapping("/updateUser")
-    public String updateUser(MyUser myUser,Role role) {
-        myUserService.updateMyUser(myUser,role);
-        return "redirect:/allUser";
-
-    }
-
-    @GetMapping("/removeUser")
-    public String removeUser_index() {
-        return "redirect:/allUser";
-    }
-
-    @GetMapping("/updateUser")
-    public String updateUser_index() {
-        return "redirect:/allUser";
-    }
-
-
-    @GetMapping("/removeUser/{id}")
-    public String userData_index(@PathVariable int id) {
-        myUserService.deleteMyUser(id);
-        return "redirect:/allUser";
-    }
-
 }

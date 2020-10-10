@@ -3,6 +3,7 @@ package app.model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,10 +17,13 @@ public class MyUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String firstName;
 
-    private String name;
+    private String lastName;
 
-    private String login;
+    private String email;
+
+    private int age;
 
     private String password;
 
@@ -33,11 +37,53 @@ public class MyUser implements UserDetails {
         this.id = id;
     }
 
-    public MyUser(int id, String login, String password, Set<Role> roles) {
-        this.id = id;
-        this.login = login;
+    public MyUser(String firstName, String lastName, String email, int age, String password, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
         this.password = password;
         this.roles = roles;
+    }
+
+    public MyUser(String firstName, String lastName, String email, int age, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getId() {
@@ -48,21 +94,6 @@ public class MyUser implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -76,7 +107,7 @@ public class MyUser implements UserDetails {
         this.roles = roles;
     }
 
-    public void addRole(Role role){
+    public void addRole(Role role) {
         if (roles == null) {
             roles = new HashSet<Role>();
         }
@@ -95,8 +126,9 @@ public class MyUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return firstName;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -117,8 +149,5 @@ public class MyUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
-
 
 }

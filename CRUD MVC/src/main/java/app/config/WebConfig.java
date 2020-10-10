@@ -18,12 +18,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 @ComponentScan(basePackages = "app")
 public class WebConfig implements WebMvcConfigurer {
 
-
     private ApplicationContext applicationContext;
 
-
     @Autowired
-    public void setApplicationContext(ApplicationContext applicationContext) {
+    public WebConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

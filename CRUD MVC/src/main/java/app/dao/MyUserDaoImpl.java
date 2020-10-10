@@ -3,6 +3,7 @@ package app.dao;
 import app.model.MyUser;
 import app.model.Role;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -33,6 +34,14 @@ public class MyUserDaoImpl implements MyUserDao {
         entityManager.persist(myUser);
     }
 
+    @Override
+    public boolean isNotReg(String email) {
+        return getMyUserList()
+                .stream()
+                .anyMatch((e) -> e.getEmail().hashCode() == email.hashCode());
+    }
+
+    @Override
     public void updateMyUser(MyUser myUser, Role role) {
         TypedQuery<Role> query = entityManager.createQuery("SELECT c FROM Role c WHERE c.role = :role", Role.class);
         Role manegedRole = query.setParameter("role", role.getRole()).getSingleResult();
@@ -47,10 +56,8 @@ public class MyUserDaoImpl implements MyUserDao {
     }
 
     @Override
-    public MyUser getUserByName(String login) {
-        TypedQuery<MyUser> query = entityManager.createQuery("SELECT c FROM MyUser c WHERE c.login = :login", MyUser.class);
-        MyUser myUser = query.setParameter("login", login).getSingleResult();
-        System.out.println(myUser);
-        return myUser;
+    public MyUser getUserByName(String email) {
+        TypedQuery<MyUser> query = entityManager.createQuery("SELECT c FROM MyUser c WHERE c.email = :email", MyUser.class);
+        return query.setParameter("email", email).getSingleResult();
     }
 }
