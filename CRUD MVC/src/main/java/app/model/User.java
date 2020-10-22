@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "MyUsers")
-public class MyUser implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -30,14 +30,14 @@ public class MyUser implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public MyUser() {
+    public User() {
     }
 
-    public MyUser(int id) {
+    public User(int id) {
         this.id = id;
     }
 
-    public MyUser(String firstName, String lastName, String email, int age, String password, Set<Role> roles) {
+    public User(String firstName, String lastName, String email, int age, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -46,7 +46,7 @@ public class MyUser implements UserDetails {
         this.roles = roles;
     }
 
-    public MyUser(String firstName, String lastName, String email, int age, String password) {
+    public User(String firstName, String lastName, String email, int age, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

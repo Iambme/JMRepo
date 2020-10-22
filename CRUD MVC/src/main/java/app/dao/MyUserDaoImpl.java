@@ -1,6 +1,6 @@
 package app.dao;
 
-import app.model.MyUser;
+import app.model.User;
 import app.model.Role;
 import org.springframework.stereotype.Repository;
 
@@ -14,24 +14,25 @@ public class MyUserDaoImpl implements MyUserDao {
     private EntityManager entityManager;
 
     @Override
-    public MyUser getMyUser(int id) {
-        MyUser myUser = (MyUser) entityManager.find(MyUser.class, id);
-        return myUser;
+    public User getMyUser(int id) {
+        User user = (User) entityManager.find(User.class, id);
+        return user;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<MyUser> getMyUserList() {
-        return entityManager.createQuery("from MyUser").getResultList();
+    public List<User> getMyUserList() {
+        return entityManager.createQuery("from User").getResultList();
     }
 
 
     @Override
-    public void saveMyUser(MyUser myUser, Role role) {
-        TypedQuery<Role> query = entityManager.createQuery("SELECT c FROM Role c WHERE c.role = :role", Role.class);
-        Role manegedRole = query.setParameter("role", role.getRole()).getSingleResult();
-        myUser.addRole(manegedRole);
-        entityManager.persist(myUser);
+    public void saveMyUser(User user, Role role) {
+        if (role.getRole() != null) {
+            role = getRole(role);
+            user.addRole(role);
+        }
+        entityManager.persist(user);
     }
 
     @Override
@@ -42,22 +43,28 @@ public class MyUserDaoImpl implements MyUserDao {
     }
 
     @Override
-    public void updateMyUser(MyUser myUser, Role role) {
-        TypedQuery<Role> query = entityManager.createQuery("SELECT c FROM Role c WHERE c.role = :role", Role.class);
-        Role manegedRole = query.setParameter("role", role.getRole()).getSingleResult();
-        myUser.addRole(manegedRole);
-        entityManager.merge(myUser);
+    public void updateMyUser(User user, Role role) {
+        if (role.getRole() != null) {
+            user = getMyUser(user.getId());
+            role = getRole(role);
+            user.addRole(role);
+        }
+        entityManager.merge(user);
     }
 
     @Override
     public void deleteMyUser(int id) {
-        MyUser myUser = getMyUser(id);
-        entityManager.remove(myUser);
+        User user = getMyUser(id);
+        entityManager.remove(user);
     }
 
     @Override
-    public MyUser getUserByName(String email) {
-        TypedQuery<MyUser> query = entityManager.createQuery("SELECT c FROM MyUser c WHERE c.email = :email", MyUser.class);
+    public User getUserByName(String email) {
+        TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.email = :email", User.class);
         return query.setParameter("email", email).getSingleResult();
+    }
+    private Role getRole(Role role){
+        TypedQuery<Role> query2 = entityManager.createQuery("SELECT c FROM Role c WHERE c.role = :role", Role.class);
+        return query2.setParameter("role", role.getRole()).getSingleResult();
     }
 }

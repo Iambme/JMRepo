@@ -1,34 +1,38 @@
 package app.controller;
 
-import app.model.MyUser;
+import app.model.User;
 import app.model.Role;
-import app.service.MyUserService;
+import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 public class UserController {
 
-    private MyUserService myUserService;
+    private UserService userService;
+
 
     @Autowired
-    public UserController(MyUserService myUserService) {
-        this.myUserService = myUserService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/login")
+
+    @GetMapping(value = {"/login", "/"})
     public String loginPage() {
-        myUserService.saveMyUser(new MyUser("Sherlock", "Holmes", "sh@bk.ru", 33, "admin"), new Role("ROLE_ADMIN"));
-        myUserService.saveMyUser(new MyUser("Doctor", "Watson", "wat@bk.ru", 40, "user"), new Role("ROLE_USER"));
+        userService.saveMyUser(new User("Sherlock", "Holmes", "sh@bk.ru", 33, "admin"), new Role("ROLE_ADMIN"));
+        userService.saveMyUser(new User("Doctor", "Watson", "wat@bk.ru", 40, "user"), new Role("ROLE_USER"));
         return "login";
     }
 
-    @GetMapping("/user/{id}")
-    public String user(@PathVariable int id, Model model) {
-        MyUser myUser = myUserService.getMyUser(id);
-        model.addAttribute("myUser", myUser);
+
+    @GetMapping(value = "/user")
+    public String userPage(Model model, Authentication authentication) {
+        model.addAttribute("user", authentication.getPrincipal());
         return "user";
     }
 }
