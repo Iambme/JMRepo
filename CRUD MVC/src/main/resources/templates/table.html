@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CRUD_MVC</title>
 
@@ -10,20 +11,8 @@
 </head>
 <body class="bg-light">
 <div class="container-fluid ">
-    <div class="row">
-        <div class="col bg-dark ">
-            <nav class="navbar navbar-light bg-dark">
-  <span class="navbar-text text-white">
-      <b> <td th:utext="${user.email}"></td></b>
-      <td>with roles:</td>
-      <td th:utext="${user.roles}"></td>
-  </span>
-                <a class="nav-link text-secondary font-weight-boldt  text-right" href="/logout">Logout</a>
-            </nav>
-        </div>
-    </div>
 
-
+    <div th:insert="~{/fragments/navbar :: #navbar}"></div>
     <div class="row h-100 ">
         <div class="col-2  bg-white list-group">
             <nav class="nav my-2 flex-column nav-pills">

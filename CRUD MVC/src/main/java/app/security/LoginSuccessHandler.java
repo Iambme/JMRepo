@@ -1,4 +1,4 @@
-package app.config.handler;
+package app.security;
 
 import app.model.User;
 import org.springframework.security.core.Authentication;
@@ -17,7 +17,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        User user = (User) authentication.getPrincipal();
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("admin/table");
         } else if (roles.contains("ROLE_USER")) {
