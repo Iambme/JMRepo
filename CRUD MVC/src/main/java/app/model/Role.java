@@ -13,7 +13,7 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String role;
+    private String name;
 
     @Transient
     @ManyToMany(mappedBy = "roles")
@@ -26,13 +26,13 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public Role(String role) {
-        this.role = role;
+    public Role(String name) {
+        this.name = name;
     }
 
-    public Role(Long id, String role, Set<User> users) {
+    public Role(Long id, String name, Set<User> users) {
         this.id = id;
-        this.role = role;
+        this.name = name;
         this.users = users;
     }
 
@@ -52,22 +52,22 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String role) {
+        this.name = role;
     }
 
     @Override
     public String getAuthority() {
-        return role;
+        return name;
     }
 
     @Override
     public String toString() {
-        return  role.replaceAll("ROLE_","") ;
+        return name.replaceAll("ROLE_", "");
     }
 
     @Override
@@ -75,11 +75,11 @@ public class Role implements GrantedAuthority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role1 = (Role) o;
-        return Objects.equals(role, role1.role);
+        return Objects.equals(name, role1.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(role);
+        return Objects.hash(name);
     }
 }
