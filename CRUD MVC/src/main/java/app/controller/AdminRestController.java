@@ -10,21 +10,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/rest")
-@org.springframework.web.bind.annotation.RestController
-public class RestController {
+@RestController
+public class AdminRestController {
 
 
     private final UserService userService;
 
     @Autowired
-    public RestController(UserService userService) {
+    public AdminRestController(UserService userService) {
         this.userService = userService;
     }
 
 
     @PostMapping(value = "/add")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        Role role = user.getRoles().stream().findFirst().get();
         userService.saveMyUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -38,7 +37,7 @@ public class RestController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value = "/get")
+    @PostMapping(value = "/paste")
     public ResponseEntity<User> getUser(@RequestBody int id) {
         User user = this.userService.getMyUser(id);
         return user != null

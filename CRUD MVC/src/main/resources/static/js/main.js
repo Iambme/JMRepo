@@ -71,7 +71,7 @@ function userForEdit(obj) {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/rest/get",
+        url: "/rest/paste",
         data: obj.value,
         dataType: 'json',
         timeout: 100000,
@@ -95,7 +95,33 @@ function userForEdit(obj) {
         }
     });
 }
-
+function userForDelete(obj) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/rest/paste",
+        data: obj.value,
+        dataType: 'json',
+        timeout: 100000,
+        success: function (data) {
+            console.log("SUCCESS: ", data);
+            var user = JSON.parse(JSON.stringify(data));
+            $("#fName2").val(user.firstName);
+            $("#lName2").val(user.lastName);
+            $("#age2").val(user.age);
+            $("#email2").val(user.email);
+            $("#roles2").val(user.role);
+            $("#deleteId").val(user.id);
+            $("#deleteButton").val(user.id);
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        },
+        done: function (e) {
+            console.log("DONE");
+        }
+    });
+}
 function deleteUser() {
 
     $.ajax({
@@ -119,33 +145,7 @@ function deleteUser() {
     });
 }
 
-function userForDelete(obj) {
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/rest/get",
-        data: obj.value,
-        dataType: 'json',
-        timeout: 100000,
-        success: function (data) {
-            console.log("SUCCESS: ", data);
-            var user = JSON.parse(JSON.stringify(data));
-            $("#fName2").val(user.firstName);
-            $("#lName2").val(user.lastName);
-            $("#age2").val(user.age);
-            $("#email2").val(user.email);
-            $("#roles2").val(user.role);
-            $("#deleteId").val(user.id);
-            $("#deleteButton").val(user.id);
-        },
-        error: function (e) {
-            console.log("ERROR: ", e);
-        },
-        done: function (e) {
-            console.log("DONE");
-        }
-    });
-}
+
 
 
 function addUser() {
