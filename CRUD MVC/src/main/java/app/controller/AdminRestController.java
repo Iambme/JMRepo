@@ -37,13 +37,14 @@ public class AdminRestController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value = "/paste")
+        @PostMapping(value = "/paste")
     public ResponseEntity<User> getUser(@RequestBody int id) {
         User user = this.userService.getMyUser(id);
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") int id) {

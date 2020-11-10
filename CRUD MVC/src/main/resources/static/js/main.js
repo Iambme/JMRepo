@@ -19,19 +19,16 @@ function loadTable() {
             $("#allUsers").children().remove();
             msg.forEach(function (user) {
                 $("#allUsers").append(
-                    '<tr id=' + user.id + '>' +
-                    '<td>' + user.id + '</td>' +
-                    '<td>' + user.firstName + '</td>' +
-                    '<td>' + user.lastName + '</td>' +
-                    '<td>' + user.age + '</td>' +
-                    '<td>' + user.email + '</td>' +
-                    '<td>' + userRoles(user.roles) + '</td>' +
-                    '<td>' + '<button type="button" name="buttonEdit" onclick="userForEdit(this)" data-target="#myModal" value=' + user.id + ' ' +
-                    'class="btn btn-info" data-toggle="modal">' + 'Edit' + '</button>' + '</td>' +
-                    '<td>' + '<button type="button" name="buttonDelete" onclick="userForDelete(this)" data-target="#myModalDelete" value=' + user.id + ' ' +
-                    ' class="btn btn-danger" data-toggle="modal">' +
-                    'Delete' + '</button>' + '</td>' +
-                    '</tr>');
+                    `<tr><td>${user.id}</td>
+                           <td>${user.firstName}</td>
+                           <td>${user.lastName}</td>
+                           <td>${user.age}</td>
+                           <td>${user.email}</td>
+                           <td>${userRoles(user.roles)}</td>
+                    <td><button type="button" name="buttonEdit" onclick="userForEdit(this)" data-target="#myModal" value=${user.id} 
+                    class="btn btn-info" data-toggle="modal">Edit</button></td>
+                    <td><button type="button" name="buttonDelete" onclick="userForDelete(this)" data-target="#myModalDelete" value=${user.id} 
+                    class="btn btn-danger" data-toggle="modal">Delete</button></td></tr>`);
             });
         }
     })
@@ -95,6 +92,7 @@ function userForEdit(obj) {
         }
     });
 }
+
 function userForDelete(obj) {
     $.ajax({
         type: "POST",
@@ -122,6 +120,7 @@ function userForDelete(obj) {
         }
     });
 }
+
 function deleteUser() {
 
     $.ajax({
@@ -144,8 +143,6 @@ function deleteUser() {
         }
     });
 }
-
-
 
 
 function addUser() {
