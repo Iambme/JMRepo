@@ -5,13 +5,37 @@
     <title>All users</title>
 </head>
 <body>
-<th:block th:each="user : ${allUser}">
 
-    <p><a th:href="@{/userData/{id}(id = ${user.getId()})}" th:text="${user}"></a> </p>
+<table border="1">
+    <tr>
+        <th><strong th:utext="Id">id</strong></th>
+        <th><strong th:utext="Name">Name</strong></th>
+        <th><strong th:utext="Login">Login</strong></th>
+        <th><strong th:utext="Password">Password</strong></th>
+        <th><strong th:utext="Roles">Roles</strong></th>
+    </tr>
 
-</th:block>
+    <tr th:each="user : ${allUser}">
 
+        <td>
+            <a th:href="@{/userData/{id}(id = ${user.getId()})}" th:text="${user.getId()}"></a>
+        </td>
+        <td>
+            <a th:href="@{/userData/{id}(id = ${user.getId()})}" th:text="${user.getName()}"></a>
+        </td>
+        <td>
+            <a th:href="@{/userData/{id}(id = ${user.getId()})}" th:text="${user.getLogin()}"></a>
+        </td>
+        <td>
+            <a th:href="@{/userData/{id}(id = ${user.getId()})}" th:text="${user.getPassword()}"></a>
+        </td>
+        <td>
+            <a th:href="@{/userData/{id}(id = ${user.getId()})}" th:text="${user.getRoles()}"></a>
+        </td>
+    </tr>
 
+</table>
 <p><a href="/addUser">Добавить пользователя</a></p>
+<a th:href="@{/logout}">Sign Out</a>
 </body>
 </html>
