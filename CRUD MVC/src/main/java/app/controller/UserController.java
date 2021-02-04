@@ -1,12 +1,12 @@
 package app.controller;
 
 import app.model.MyUser;
+import app.model.Role;
 import app.service.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -43,8 +43,8 @@ public class UserController {
 
 
     @PostMapping("/addUser")
-    public String addUser(MyUser myUser) {
-        myUserService.saveMyUser(myUser);
+    public String addUser(MyUser myUser, Role role) {
+        myUserService.saveMyUser(myUser,role);
         return "redirect:/allUser";
     }
 
@@ -62,8 +62,8 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(MyUser myUser) {
-        myUserService.updateMyUser(myUser);
+    public String updateUser(MyUser myUser,Role role) {
+        myUserService.updateMyUser(myUser,role);
         return "redirect:/allUser";
 
     }

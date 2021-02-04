@@ -2,8 +2,6 @@ package app.model;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,7 +14,7 @@ public class Role implements GrantedAuthority {
     private String role;
 
     @Transient
-    @ManyToMany(mappedBy = "roles",cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "roles")
     private Set<MyUser> myUsers;
 
     public Role() {

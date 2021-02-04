@@ -1,6 +1,7 @@
 package app.dao;
 
 import app.model.MyUser;
+import app.model.Role;
 import org.springframework.stereotype.Repository;
 import javax.persistence.*;
 import java.util.List;
@@ -23,16 +24,19 @@ public class MyUserDaoImpl implements MyUserDao {
         return entityManager.createQuery("from MyUser").getResultList();
     }
 
+
     @Override
-    public void saveMyUser(MyUser myUser) {
+    public void saveMyUser(MyUser myUser, Role role) {
+        TypedQuery<Role> query = entityManager.createQuery("SELECT c FROM Role c WHERE c.role = :role", Role.class);
+        Role manegedRole = query.setParameter("role", role.getRole()).getSingleResult();
+        myUser.addRole(manegedRole);
         entityManager.persist(myUser);
     }
 
-
-    @Override
-    public void updateMyUser(MyUser myUser) {
-        MyUser managedUser = entityManager.find(MyUser.class, myUser.getId());
-        myUser.setRoles(managedUser.getRoles());
+    public void updateMyUser(MyUser myUser, Role role) {
+        TypedQuery<Role> query = entityManager.createQuery("SELECT c FROM Role c WHERE c.role = :role", Role.class);
+        Role manegedRole = query.setParameter("role", role.getRole()).getSingleResult();
+        myUser.addRole(manegedRole);
         entityManager.merge(myUser);
     }
 

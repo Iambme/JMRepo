@@ -2,6 +2,7 @@ package app.service;
 
 import app.dao.MyUserDao;
 import app.model.MyUser;
+import app.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,17 +30,18 @@ public class MyUserServiceImpl implements MyUserService {
         return myUserDao.getMyUserList();
     }
 
+
     @Transactional
     @Override
-    public void saveMyUser(MyUser myUser) {
-        myUserDao.saveMyUser(myUser);
+    public void saveMyUser(MyUser myUser, Role role) {
+        myUserDao.saveMyUser(myUser,role);
     }
 
 
     @Transactional
     @Override
-    public void updateMyUser(MyUser myUser) {
-        myUserDao.updateMyUser(myUser);
+    public void updateMyUser(MyUser myUser, Role role) {
+        myUserDao.updateMyUser(myUser,role);
     }
 
     @Transactional
