@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private MyUserDao myUserDao;
-    private PasswordEncoder passwordEncoder;
+    private final MyUserDao myUserDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(MyUserDao myUserDao, PasswordEncoder passwordEncoder) {
