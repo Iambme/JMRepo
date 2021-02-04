@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "MyUsers")
+@Table(name = "Users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +43,14 @@ public class User implements UserDetails {
         this.email = email;
         this.age = age;
         this.password = password;
+        this.roles = roles;
+    }
+
+    public User(String firstName, String lastName, String email, int age, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
         this.roles = roles;
     }
 
