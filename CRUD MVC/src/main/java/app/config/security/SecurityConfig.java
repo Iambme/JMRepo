@@ -1,4 +1,4 @@
-package app.config;
+package app.config.security;
 
 import app.config.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -56,19 +56,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/admin").access("hasAnyRole('ROLE_ADMIN')")
+                .antMatchers("/admin/*").access("hasAuthority('ROLE_ADMIN')")
                 // разрешаем входить на /user пользователям с ролью User
-                .antMatchers("/user").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                .anyRequest().authenticated()
-                // Spring сам подставит свою логин форму
-                .and().formLogin()
-                // подключаем наш SuccessHandler для перенеправления по ролям
-                .successHandler(loginSuccessHandler);
+                .antMatchers("/user").access("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')");
+//                .anyRequest().authenticated()
+//                // Spring сам подставит свою логин форму
+//                .and().formLogin()
+//                // подключаем наш SuccessHandler для перенеправления по ролям
+//                .successHandler(loginSuccessHandler);
+
+
 
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }

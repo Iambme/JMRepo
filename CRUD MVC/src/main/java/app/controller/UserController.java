@@ -1,88 +1,38 @@
 package app.controller;
 
-import app.model.MyUser;
+import app.model.User;
 import app.model.Role;
-import app.service.MyUserService;
+import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 
 @Controller
 public class UserController {
 
-    private MyUserService myUserService;
+    private UserService userService;
+
 
     @Autowired
-    public void setMyUserService(MyUserService myUserService) {
-        this.myUserService = myUserService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/login")
+
+    @GetMapping(value = {"/login", "/"})
     public String loginPage() {
+        userService.saveMyUser(new User("Sherlock", "Holmes", "sh@bk.ru", 33, "admin"), new Role("ROLE_ADMIN"));
+        userService.saveMyUser(new User("Doctor", "Watson", "wat@bk.ru", 40, "user"), new Role("ROLE_USER"));
         return "login";
     }
 
-    @GetMapping("/admin")
-    public String startPage() {
-        return "index";
-    }
 
-    @GetMapping("/allUser")
-    public String allUser(Model model) {
-        List<MyUser> myUserList = myUserService.getMyUserList();
-        model.addAttribute("allUser", myUserList);
-        return "allUser";
-    }
-
-    @GetMapping("/addUser")
-    public String addUser_index(Model model) {
-        return "addUser";
-    }
-
-
-    @PostMapping("/addUser")
-    public String addUser(MyUser myUser, Role role) {
-        myUserService.saveMyUser(myUser,role);
-        return "redirect:/allUser";
-    }
-
-    @GetMapping("/userData/{id}")
-    public String userData_index(@PathVariable int id, Model model) {
-        MyUser myUser = myUserService.getMyUser(id);
-        model.addAttribute("myUser", myUser);
-        return "userData";
-    }
-    @GetMapping("/user/{id}")
-    public String user(@PathVariable int id, Model model) {
-        MyUser myUser = myUserService.getMyUser(id);
-        model.addAttribute("myUser", myUser);
+    @GetMapping(value = "/user")
+    public String userPage(Model model, Authentication authentication) {
+        model.addAttribute("user", authentication.getPrincipal());
         return "user";
     }
-
-    @PostMapping("/updateUser")
-    public String updateUser(MyUser myUser,Role role) {
-        myUserService.updateMyUser(myUser,role);
-        return "redirect:/allUser";
-
-    }
-
-    @GetMapping("/removeUser")
-    public String removeUser_index() {
-        return "redirect:/allUser";
-    }
-
-    @GetMapping("/updateUser")
-    public String updateUser_index() {
-        return "redirect:/allUser";
-    }
-
-
-    @GetMapping("/removeUser/{id}")
-    public String userData_index(@PathVariable int id) {
-        myUserService.deleteMyUser(id);
-        return "redirect:/allUser";
-    }
-
 }

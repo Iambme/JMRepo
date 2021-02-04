@@ -2,7 +2,9 @@ package app.model;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -15,7 +17,7 @@ public class Role implements GrantedAuthority {
 
     @Transient
     @ManyToMany(mappedBy = "roles")
-    private Set<MyUser> myUsers;
+    private Set<User> users;
 
     public Role() {
     }
@@ -24,23 +26,22 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public Role(Long id, String role) {
-        this.id = id;
+    public Role(String role) {
         this.role = role;
     }
 
-    public Role(Long id, String role, Set<MyUser> myUsers) {
+    public Role(Long id, String role, Set<User> users) {
         this.id = id;
         this.role = role;
-        this.myUsers = myUsers;
+        this.users = users;
     }
 
-    public Set<MyUser> getMyUsers() {
-        return myUsers;
+    public Set<User> getMyUsers() {
+        return users;
     }
 
-    public void setMyUsers(Set<MyUser> myUsers) {
-        this.myUsers = myUsers;
+    public void setMyUsers(Set<User> users) {
+        this.users = users;
     }
 
     public Long getId() {
@@ -70,5 +71,18 @@ public class Role implements GrantedAuthority {
                 "id=" + id +
                 ", role='" + role + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role1 = (Role) o;
+        return Objects.equals(role, role1.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role);
     }
 }

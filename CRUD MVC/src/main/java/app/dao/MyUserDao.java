@@ -1,23 +1,23 @@
 package app.dao;
 
-import app.model.MyUser;
+import app.model.User;
 import app.model.Role;
+
 
 import java.util.List;
 
 public interface MyUserDao {
-    MyUser getMyUser(int id);
+    User getMyUser(int id);
 
-    List<MyUser> getMyUserList();
+    List<User> getMyUserList();
 
+    void saveMyUser(User user, Role role);
 
-    void saveMyUser(MyUser myUser,Role role);
+    boolean isNotReg(String email);
 
-
-    void updateMyUser(MyUser myUser, Role role);
+    void updateMyUser(User user, Role role);
 
     void deleteMyUser(int id);
 
-
-    MyUser getUserByName(String s);
+    User getUserByName(String s);
 }
