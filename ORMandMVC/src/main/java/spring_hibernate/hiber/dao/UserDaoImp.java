@@ -11,6 +11,7 @@ import spring_hibernate.hiber.model.User;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+
 @Repository
 public class UserDaoImp implements UserDao {
 
@@ -31,13 +32,11 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getByCar(String name, int series) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from Car where name=:name and series=:series");
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM User as u where u.car.name=:name and u.car.series=:series");
         query.setParameter("name", name);
         query.setParameter("series", series);
-        Car car = (Car) query.uniqueResult();
-        query = sessionFactory.getCurrentSession().createQuery("from User where car=:car");
-        query.setParameter("car", car);
         User user = (User) query.uniqueResult();
+
         return user;
     }
 

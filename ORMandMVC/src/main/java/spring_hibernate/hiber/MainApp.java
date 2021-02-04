@@ -18,9 +18,9 @@ public class MainApp {
 
 
 
-        /*
-        //Создание 3х Юзеров и Добавление каждому из них по машине
 
+        //Создание 3х Юзеров и Добавление каждому из них по машине
+/*
         User user1 = new User("User1", "Lastname1", "user1@mail.ru");
         User user2 = new User("User2", "Lastname2", "user2@mail.ru");
         User user3 = new User("User3", "Lastname3", "user3@mail.ru");
@@ -39,8 +39,8 @@ public class MainApp {
         userService.add(user1);
         userService.add(user2);
         userService.add(user3);
+*/
 
-         */
         //Вывод информации о юзерах и их машинах
         List<User> users = userService.listUsers();
         for (User user : users) {
@@ -52,9 +52,11 @@ public class MainApp {
             System.out.println();
         }
         //получение юзера по названию и серии машины
+//
         User user = userService.getUserByCar("Car2",84);
         System.out.println(user.toString());
-
         context.close();
+
+
     }
 }
